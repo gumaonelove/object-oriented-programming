@@ -8,7 +8,6 @@ namespace Figures
         public static Bitmap bitmap;
         public static PictureBox pictureBox;
         public static Pen pen;
-        public static ListBox figuresListBox;
         public static bool Coords_check(int x, int y, int w, int h)
         {
             if (!((x < 0) || (y < 0) || (x + w > Init.pictureBox.Width) || (y + h > Init.pictureBox.Height)))

@@ -27,82 +27,89 @@ namespace Lab4
             {
                 operators.Clear();
                 operands.Clear();
-                try
+                
+                string sourceExpression = textBoxInputString.Text.Replace(" ", "");
+                for (int i = 0; i < sourceExpression.Length; i++)
                 {
-                    string sourceExpression = textBoxInputString.Text.Replace(" ", "");
-                    for (int i = 0; i < sourceExpression.Length; i++)
+                    char c = sourceExpression[i];
+                    if (IsNotOperation(c))
                     {
-                        char c = sourceExpression[i];
-                        if (IsNotOperation(c))
+                        if (!Char.IsDigit(c))
                         {
-                            if (!Char.IsDigit(c))
+                            operands.Push(new Operand(c));
+                            while (i < sourceExpression.Length - 1 && IsNotOperation(sourceExpression[i + 1]))
                             {
-                                operands.Push(new Operand(c));
-                                while (i < sourceExpression.Length - 1 && IsNotOperation(sourceExpression[i + 1]))
-                                {
-                                    string temp_str = operands.Pop().value.ToString() + sourceExpression[i + 1].ToString();
-                                    operands.Push(new Operand(temp_str));
-                                    i++;
-                                }
-                            }
-                            else if (Char.IsDigit(c))
-                            {
-                                operands.Push(new Operand(c.ToString()));
-                                while (i < sourceExpression.Length - 1 && Char.IsDigit(sourceExpression[i + 1])
-                                    && IsNotOperation(sourceExpression[i + 1]))
-                                {
-                                    int temp_num = Convert.ToInt32(operands.Pop().value.ToString()) * 10 +
-                                        (int)Char.GetNumericValue(sourceExpression[i + 1]);
-                                    operands.Push(new Operand(temp_num.ToString()));
-                                    i++;
-                                }
+                                string temp_str = operands.Pop().value.ToString() + sourceExpression[i + 1].ToString();
+                                operands.Push(new Operand(temp_str));
+                                i++;
                             }
                         }
-
-                        else if ((c == 'S') || (c == 'M') || (c == 'D') || (c == 'I'))
+                        else if (Char.IsDigit(c))
                         {
-                            if (operators.Count == 0)
+                            operands.Push(new Operand(c.ToString()));
+                            while (i < sourceExpression.Length - 1 && Char.IsDigit(sourceExpression[i + 1])
+                                && IsNotOperation(sourceExpression[i + 1]))
                             {
-                                operators.Push(OperatorContainer.FindOperator(c));
+                                int temp_num = Convert.ToInt32(operands.Pop().value.ToString()) * 10 +
+                                    (int)Char.GetNumericValue(sourceExpression[i + 1]);
+                                operands.Push(new Operand(temp_num.ToString()));
+                                i++;
                             }
-                        }
-                        else if (sourceExpression[i] == '(')
-                        {
-                            operators.Push(OperatorContainer.FindOperator(sourceExpression[i]));
-                        }
-                        else if (c == ')')
-                        {
-                            do
-                            {
-                                if (operators.Peek().symbolOperator == '(')
-                                {
-                                    operators.Pop();
-                                    break;
-                                }
-                                if (operators.Count == 0)
-                                {
-                                    break;
-                                }
-                            }
-                            while (operators.Peek().symbolOperator != '(');
                         }
                     }
+
+                    else if ((c == 'S') || (c == 'M') || (c == 'D') || (c == 'I'))
+                    {
+                        if (operators.Count == 0)
+                        {
+                            operators.Push(OperatorContainer.FindOperator(c));
+                        }
+                    }
+                    else if (sourceExpression[i] == '(')
+                    {
+                        operators.Push(OperatorContainer.FindOperator(sourceExpression[i]));
+                    }
+                    else if (c == ')')
+                    {
+                        do
+                        {
+                            if (operators.Peek().symbolOperator == '(')
+                            {
+                                operators.Pop();
+                                break;
+                            }
+                            if (operators.Count == 0)
+                            {
+                                break;
+                            }
+                        }
+                        while (operators.Peek().symbolOperator != '(');
+                    }
                 }
-                catch
-                {
-                    MessageBox.Show("Аргументы введены некорректно.");
-                    comboBox1.Items.Add("Аргументы введены некорректно.");
-                }
-                try
-                {
-                    SelectingPerformingOperation(operators.Peek());
-                }
-                catch
+                
+                
+                if (IsNotOperation(operators.Peek().symbolOperator))
                 {
                     MessageBox.Show("Введенной операции не существует.");
                     comboBox1.Items.Add("Введенной операции не существует.");
                 }
+                else
+                {
+                    SelectingPerformingOperation(operators.Pop());
+                }
+          
             }
+        }
+        private bool CheckName(string name)
+        {
+            foreach (Square asq in ShapeContainer.figureList)
+            {
+                if (asq.user_name == name)
+                {
+                    return false;
+                }  
+            }
+            return true;
         }
         private void SelectingPerformingOperation(Operator op)
         {
@@ -115,19 +122,28 @@ namespace Lab4
                     int y = Convert.ToInt32(operands.Pop().value.ToString());
                     int x = Convert.ToInt32(operands.Pop().value.ToString());
                     string name = operands.Pop().value.ToString();
-                    if (Init.Coords_check(x, y, a, a))
+                    if (CheckName(name))
                     {
-                        Square figure = new Square(sq_count, x, y, a, name);
-                        op = new Operator(figure.Draw, 'S');
-                        ShapeContainer.AddFigure(figure);
-                        comboBox1.Items.Add($"Квадрат {figure.user_name} отрисован");
-                        op.operatorMethod();
+                        if (Init.Coords_check(x, y, a, a))
+                        {
+                            Square figure = new Square(sq_count, x, y, a, name);
+                            op = new Operator(figure.Draw, 'S');
+                            ShapeContainer.AddFigure(figure);
+                            comboBox1.Items.Add($"Квадрат {figure.user_name} отрисован");
+                            op.operatorMethod();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Фигура вышла за границы.");
+                            comboBox1.Items.Add("Фигура вышла за границы.");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Фигура вышла за границы.");
-                        comboBox1.Items.Add("Фигура вышла за границы.");
+                        MessageBox.Show("Фигура с таким именем уже сужествует.");
+                        comboBox1.Items.Add("Фигура с таким именем уже сужествует.");
                     }
+                    
                 }
                 else
                 {
