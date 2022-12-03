@@ -93,17 +93,23 @@ namespace Lab4
                     }
                 }
                 
-                
-                if (IsNotOperation(operators.Peek().symbolOperator))
+                if (operators.Count > 0)
                 {
-                    MessageBox.Show("Введенной операции не существует.");
-                    comboBox1.Items.Add("Введенной операции не существует.");
+                    if (IsNotOperation(operators.Peek().symbolOperator))
+                    {
+                        MessageBox.Show("Введенной операции не существует.");
+                        comboBox1.Items.Add("Введенной операции не существует.");
+                    }
+                    else
+                    {
+                        SelectingPerformingOperation(operators.Pop());
+                    }
                 }
                 else
                 {
-                    SelectingPerformingOperation(operators.Pop());
+                    MessageBox.Show("Вы не ввели операцию.");
+                    comboBox1.Items.Add("Вы не ввели операцию.");
                 }
-          
             }
         }
         private bool CheckName(string name)
