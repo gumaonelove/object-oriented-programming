@@ -52,7 +52,7 @@ namespace Lab4
                             {
                                 int temp_num = Convert.ToInt32(operands.Pop().value.ToString()) * 10 +
                                     (int)Char.GetNumericValue(sourceExpression[i + 1]);
-                                operands.Push(new Operand(temp_num.ToString()));
+                                operands.Push(new Operand(temp_num));
                                 i++;
                             }
                         }
@@ -86,18 +86,32 @@ namespace Lab4
                         while (operators.Peek().symbolOperator != '(');
                     }
                 }
-                
-                
-                if (IsNotOperation(operators.Peek().symbolOperator))
+
+                if (operators.Count > 0)
                 {
-                    MessageBox.Show("Введенной операции не существует.");
-                    comboBox1.Items.Add("Введенной операции не существует.");
+                    if (IsNotOperation(operators.Peek().symbolOperator))
+                    {
+                        MessageBox.Show("Введенной операции не существует.");
+                        comboBox1.Items.Add("Введенной операции не существует.");
+                    }
+                    else
+                    {
+                        if (ParameterCheck())
+                        {
+                            SelectingPerformingOperation(operators.Pop());
+                        }
+                        else
+                        {
+                            MessageBox.Show("Команда введена некорректно.");
+                            comboBox1.Items.Add("Команда введена некорректно.");
+                        }
+                    }
                 }
                 else
                 {
-                    SelectingPerformingOperation(operators.Pop());
+                    MessageBox.Show("Вы не ввели операцию.");
+                    comboBox1.Items.Add("Вы не ввели операцию.");
                 }
-          
             }
         }
         private bool CheckName(string name)
@@ -271,6 +285,30 @@ namespace Lab4
             {
                 return false;
             }
+        }
+        private bool ParameterCheck()
+        {
+            Stack<Operand> stack = new Stack<Operand>(operands);
+            int stack_lenght = stack.Count;
+            for (int i = 0; i < stack_lenght; i++)
+            {
+                Operand operand = stack.Pop();
+                if (i == 0)
+                {
+                    if (!(operand.value is string) && !(operand.value is char))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!(operand.value is int))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }
