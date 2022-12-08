@@ -106,7 +106,7 @@ namespace Lab4
                     if (IsNotOperation(operators.Peek().symbolOperator))
                     {
                         MessageBox.Show("Введенной операции не существует.");
-                        comboBox1.Items.Add("Введенной операции не существует.");
+                        commandsList.Items.Add("Введенной операции не существует.");
                     }
                     else
                     {
@@ -117,14 +117,14 @@ namespace Lab4
                         else
                         {
                             MessageBox.Show("Команда введена некорректно.");
-                            comboBox1.Items.Add("Команда введена некорректно.");
+                            commandsList.Items.Add("Команда введена некорректно.");
                         }
                     }
                 }
                 else
                 {
                     MessageBox.Show("Вы не ввели операцию.");
-                    comboBox1.Items.Add("Вы не ввели операцию.");
+                    commandsList.Items.Add("Вы не ввели операцию.");
                 }
             }
         }
@@ -168,26 +168,26 @@ namespace Lab4
                             op = new Operator(figure.Draw, 'S');
                             ShapeContainer.AddFigure(figure);
                             bs.ResetBindings(false);
-                            comboBox1.Items.Add($"Квадрат {figure.user_name} отрисован");
+                            commandsList.Items.Add($"Квадрат {figure.user_name} отрисован");
                             op.operatorMethod();
                         }
                         else
                         {
                             MessageBox.Show("Фигура вышла за границы.");
-                            comboBox1.Items.Add("Фигура вышла за границы.");
+                            commandsList.Items.Add("Фигура вышла за границы.");
                         }
                     }
                     else
                     {
                         MessageBox.Show("Фигура с таким именем уже сужествует.");
-                        comboBox1.Items.Add("Фигура с таким именем уже сужествует.");
+                        commandsList.Items.Add("Фигура с таким именем уже сужествует.");
                     }
                     
                 }
                 else
                 {
                     MessageBox.Show("Опертор S принимает 4 аргумента.");
-                    comboBox1.Items.Add("Неверное число аргументов для оператора S.");
+                    commandsList.Items.Add("Неверное число аргументов для оператора S.");
                 }
             }
             // Перемещение квадрата
@@ -212,23 +212,23 @@ namespace Lab4
                         {
                             figure.MoveTo(x, y);
                             bs.ResetBindings(false);
-                            comboBox1.Items.Add($"Фигура {figure.user_name} успешно перемещена");
+                            commandsList.Items.Add($"Фигура {figure.user_name} успешно перемещена");
                         }
                         else
                         {
                             MessageBox.Show("Фигура вышла за границы.");
-                            comboBox1.Items.Add("Фигура вышла за границы.");
+                            commandsList.Items.Add("Фигура вышла за границы.");
                         }
                     }
                     else
                     {
-                        comboBox1.Items.Add($"Фигуры {name} не существует");
+                        commandsList.Items.Add($"Фигуры {name} не существует");
                     }
                 }
                 else
                 {
                     MessageBox.Show("Опертор M принимает 3 аргумента.");
-                    comboBox1.Items.Add("Неверное число аргументов для оператора M.");
+                    commandsList.Items.Add("Неверное число аргументов для оператора M.");
                 }
             }
             // Изменение стороны квадрата
@@ -254,23 +254,23 @@ namespace Lab4
                             figure.h = ca;
                             figure.DeleteF(figure, false);
                             figure.Draw();
-                            comboBox1.Items.Add($"Фигура {figure.user_name} изменена.");
+                            commandsList.Items.Add($"Фигура {figure.user_name} изменена.");
                         }
                         else
                         {
                             MessageBox.Show("Фигура вышла за границы.");
-                            comboBox1.Items.Add("Фигура вышла за границы.");
+                            commandsList.Items.Add("Фигура вышла за границы.");
                         }
                     }
                     else
                     {
-                        comboBox1.Items.Add($"Фигуры {name} не существует");
+                        commandsList.Items.Add($"Фигуры {name} не существует");
                     }
                 }
                 else
                 {
                     MessageBox.Show("Опертор I принимает 2 аргумента.");
-                    comboBox1.Items.Add("Неверное число аргументов для оператора I.");
+                    commandsList.Items.Add("Неверное число аргументов для оператора I.");
                 }
             }
             // Удаление квадрата
@@ -291,17 +291,17 @@ namespace Lab4
                     {
                         figure.DeleteF(figure, true);
                         bs.ResetBindings(false);
-                        comboBox1.Items.Add($"Фигура {figure.user_name} удалена.");
+                        commandsList.Items.Add($"Фигура {figure.user_name} удалена.");
                     }
                     else
                     {
-                        comboBox1.Items.Add($"Фигуры {name} не существует.");
+                        commandsList.Items.Add($"Фигуры {name} не существует.");
                     }
                 }
                 else
                 {
                     MessageBox.Show("Опертор D принимает 1 аргумент.");
-                    comboBox1.Items.Add("Неверное число аргументов для оператора D.");
+                    commandsList.Items.Add("Неверное число аргументов для оператора D.");
                 }
             }
         }

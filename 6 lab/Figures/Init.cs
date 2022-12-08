@@ -38,7 +38,7 @@ namespace Figures
         /// <param name="points">Массив точек, задающий фигуру</param>
         /// <param name="x">смещение по оси х</param>
         /// <param name="y">смещение по оси y</param>
-        /// <returns></returns>
+        /// <returns>Перемещение фигуры</returns>
         public static bool Coords_check(Point[] points, int x, int y)
         {
             for (int i = 0; i < points.Length; i++)

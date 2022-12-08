@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.textBoxInputString = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.commandsList = new System.Windows.Forms.ComboBox();
             this.pictureBoxWindow = new System.Windows.Forms.PictureBox();
             this.listBoxFigures = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWindow)).BeginInit();
@@ -46,17 +46,17 @@
             this.textBoxInputString.TabIndex = 0;
             this.textBoxInputString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxInputString_KeyDown);
             // 
-            // comboBox1
+            // commandsList
             // 
-            this.comboBox1.AllowDrop = true;
-            this.comboBox1.DropDownWidth = 250;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(387, 12);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(157, 26);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.Text = "История команд";
+            this.commandsList.AllowDrop = true;
+            this.commandsList.DropDownWidth = 250;
+            this.commandsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.commandsList.FormattingEnabled = true;
+            this.commandsList.Location = new System.Drawing.Point(387, 12);
+            this.commandsList.Name = "commandsList";
+            this.commandsList.Size = new System.Drawing.Size(157, 26);
+            this.commandsList.TabIndex = 1;
+            this.commandsList.Text = "История команд";
             // 
             // pictureBoxWindow
             // 
@@ -85,7 +85,7 @@
             this.ClientSize = new System.Drawing.Size(798, 450);
             this.Controls.Add(this.listBoxFigures);
             this.Controls.Add(this.pictureBoxWindow);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.commandsList);
             this.Controls.Add(this.textBoxInputString);
             this.Name = "Form1";
             this.Text = "Lab4";
@@ -98,7 +98,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxInputString;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox commandsList;
         private System.Windows.Forms.PictureBox pictureBoxWindow;
         private System.Windows.Forms.ListBox listBoxFigures;
     }
